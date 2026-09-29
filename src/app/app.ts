@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
+import { ProductList } from './product-list/product-list';
 
-@Component({ selector: 'app-root', template: `Dziaua` })
+@Component({
+  selector: 'app-root',
+  imports: [ProductList],
+  template: `<app-product-list [products]="products" />`,
+})
 export class App {
   products = [
     { id: 1, name: 'Klawiatura', price: 199 },

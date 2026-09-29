@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { ProductItem } from './product-item/product-item';
 
 @Component({
-  imports: [],
   selector: 'app-product-list',
+  template: `
+    @for (product of products(); track product.id) {
+      <app-product-item [product]="product" />
+    }
+  `,
   styleUrl: './product-list.scss',
-  templateUrl: './product-list.html',
+  imports: [ProductItem],
 })
-export class ProductList {}
+export class ProductList {
+  readonly products = input.required<{ id: number; name: string; price: number }[]>();
+}

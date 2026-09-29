@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   imports: [],
   selector: 'app-product-item',
   styleUrl: './product-item.scss',
-  templateUrl: './product-item.html',
+  template: `<p>{{ product().name }} - {{ product().price }}</p>`,
 })
-export class ProductItem {}
+export class ProductItem {
+  readonly product = input.required<{ id: number; name: string; price: number }>();
+}
