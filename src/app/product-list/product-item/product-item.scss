@@ -1,0 +1,26 @@
+$accent-color: #09f;
+$accent-shadow: #07d;
+$shadow-thickness: 5px;
+$button-height: 32px;
+$button-font-size: 1rem;
+
+.product-wrapper button {
+  border: none;
+  background-color: $accent-color;
+  font-size: $button-font-size;
+  box-sizing: border-box;
+  border-radius: $button-height;
+  height: $button-height;
+  padding: 0 calc($button-height / 2);
+}
+.product-wrapper button::before {
+  border: none;
+  position: absolute;
+  content: '';
+  background-color: $accent-shadow;
+  height: $button-height;
+  width: 100%;
+  z-index: -9;
+  padding: 0 calc($button-height / 2);
+  transform: translateY($shadow-thickness);
+}

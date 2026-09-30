@@ -11,7 +11,8 @@ import { Cart } from './cart/cart';
       (removeProductEvent)="removeProduct($event)"
     />
     <hr />
-    <app-cart [cart]="cart" (removeProductEvent)="removeProduct($event)" />`,
+    <app-cart [cart]="cart" (removeProductEvent)="removeProduct($event)" />
+    <button mat-button>Action</button> `,
 })
 export class App {
   products = [
