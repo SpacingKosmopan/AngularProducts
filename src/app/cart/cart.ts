@@ -11,11 +11,13 @@ import { Component, input, output, computed } from '@angular/core';
       @for (product of cart(); track product.idInCart) {
         <div class="product-wrapper">
           <p>{{ product.data.name }} - {{ product.data.price }}zł</p>
-          <button (click)="removeProduct(product.idInCart)">Usuń z koszyka</button>
+          <button (click)="removeProduct(product.idInCart)">Usuń</button>
         </div>
       }
       -------------------------------<br />
-      RAZEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ price() }}zł
+      RAZEM
+      <div style="display:inline;margin:0 30px;"></div>
+      {{ price() }}zł
     }
   `,
 })
