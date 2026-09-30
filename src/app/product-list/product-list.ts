@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ProductItem } from './product-item/product-item';
 
 @Component({
@@ -7,17 +7,6 @@ import { ProductItem } from './product-item/product-item';
     @for (product of products(); track product.id) {
       <app-product-item [product]="product" (addProductEvent)="addProduct($event)" />
     }
-    <hr />
-    W koszyku:
-    @for (product of cart; track product.idInCart) {
-      <app-product-item
-        [product]="product.data"
-        (addProductEvent)="addProduct($event)"
-        (removeProductEvent)="removeProduct($event)"
-        [isInCart]="true"
-        [productIdInCart]="product.idInCart"
-      />
-    }
   `,
   styleUrl: './product-list.scss',
   imports: [ProductItem],
@@ -25,13 +14,15 @@ import { ProductItem } from './product-item/product-item';
 export class ProductList {
   readonly products = input.required<Product[]>();
 
-  cart = new Array();
+  readonly addProductEvent = output<Product>();
+  readonly removeProductEvent = output<number>();
 
   addProduct(product: Product) {
-    this.cart.push({ data: product, idInCart: this.cart.length });
+    console.log('Product on the list wants to be added');
+    this.addProductEvent.emit(product);
   }
 
   removeProduct(productTRMV: number) {
-    this.cart = this.cart.filter((product) => product.idInCart !== productTRMV);
+    this.removeProductEvent.emit(productTRMV);
   }
 }
