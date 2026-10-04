@@ -1,18 +1,43 @@
 import { Component } from '@angular/core';
 import { ProductList } from './product-list/product-list';
 import { Cart } from './cart/cart';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-root',
-  imports: [ProductList, Cart],
-  template: `<app-product-list
-      [products]="products"
-      (addProductEvent)="addProduct($event)"
-      (removeProductEvent)="removeProduct($event)"
-    />
-    <hr />
-    <app-cart [cart]="cart" (removeProductEvent)="removeProduct($event)" />
-    <button mat-button>Action</button> `,
+  imports: [ProductList, Cart, MatButtonModule, MatDividerModule, MatCardModule],
+  styleUrl: './app.scss',
+  template: /*html*/ `
+    <div class="main-wrapper">
+      <mat-card class="main-card">
+        <mat-card-header>
+          <mat-card-title>Sklep</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="section-container">
+            <app-product-list
+              [products]="products"
+              (addProductEvent)="addProduct($event)"
+              (removeProductEvent)="removeProduct($event)"
+            />
+          </div>
+
+          <mat-divider class="my-4"></mat-divider>
+
+          <div class="section-container">
+            <app-cart [cart]="cart" (removeProductEvent)="removeProduct($event)" />
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="actions-container">
+          <button mat-raised-button color="primary">Action</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  `,
 })
 export class App {
   products = [

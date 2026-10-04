@@ -1,0 +1,15 @@
+.product-material-list {
+  padding: 0;
+
+  .product-list-item {
+    height: auto;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #f1f3f5;
+    }
+  }
+}

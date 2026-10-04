@@ -1,23 +1,45 @@
 import { Component, input, output, computed } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-  imports: [],
+  imports: [MatButtonModule, MatDividerModule, MatIconModule, MatListModule],
   selector: 'app-cart',
   styleUrl: './cart.scss',
-  template: `
+  template: /*html*/ `
     @if (cart().length === 0) {
-      <p>Koszyk jest pusty</p>
+      <p class="empty-cart-msg">Koszyk jest pusty</p>
     } @else {
-      @for (product of cart(); track product.idInCart) {
-        <div class="product-wrapper">
-          <p>{{ product.data.name }} - {{ product.data.price }}zł</p>
-          <button (click)="removeProduct(product.idInCart)">Usuń</button>
-        </div>
-      }
-      -------------------------------<br />
-      RAZEM
-      <div style="display:inline;margin:0 30px;"></div>
-      {{ price() }}zł
+      <mat-list class="cart-material-list">
+        @for (product of cart(); track product.idInCart) {
+          <mat-list-item>
+            <div class="cart-item-row">
+              <div class="item-info">
+                <span class="item-name">{{ product.data.name }}</span>
+                <span class="item-price">{{ product.data.price }}</span>
+              </div>
+
+              <button
+                mat-flat-button
+                class="remove-button"
+                (click)="removeProduct(product.idInCart)"
+              >
+                <mat-icon>delete</mat-icon>
+                <span>Usuń</span>
+              </button>
+            </div>
+          </mat-list-item>
+        }
+      </mat-list>
+
+      <mat-divider class="cart-divider"></mat-divider>
+
+      <div class="cart-summary">
+        <span class="summary-label">RAZEM:</span>
+        <span class="summary-value">{{ price() }} zł</span>
+      </div>
     }
   `,
 })

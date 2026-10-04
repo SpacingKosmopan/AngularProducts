@@ -1,15 +1,20 @@
 import { Component, input, output } from '@angular/core';
 import { ProductItem } from './product-item/product-item';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-product-list',
-  template: `
-    @for (product of products(); track product.id) {
-      <app-product-item [product]="product" (addProductEvent)="addProduct($event)" />
-    }
+  template: /*html*/ `
+    <mat-list class="product-material-list">
+      @for (product of products(); track product.id) {
+        <mat-list-item class="product-list-item">
+          <app-product-item [product]="product" (addProductEvent)="addProduct($event)" />
+        </mat-list-item>
+      }
+    </mat-list>
   `,
   styleUrl: './product-list.scss',
-  imports: [ProductItem],
+  imports: [ProductItem, MatListModule],
 })
 export class ProductList {
   readonly products = input.required<Product[]>();
