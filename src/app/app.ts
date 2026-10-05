@@ -4,13 +4,26 @@ import { Cart } from './cart/cart';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [ProductList, Cart, MatButtonModule, MatDividerModule, MatCardModule],
+  imports: [
+    ProductList,
+    Cart,
+    MatButtonModule,
+    MatDividerModule,
+    MatCardModule,
+    RouterLink,
+    RouterOutlet,
+  ],
   styleUrl: './app.scss',
   template: /*html*/ `
     <div class="main-wrapper">
+      <nav><a routerLink="/">Strona główna</a> | <a routerLink="/cart">Koszyk</a></nav>
+
+      <router-outlet></router-outlet>
+
       <mat-card class="main-card">
         <mat-card-header>
           <mat-card-title>Sklep</mat-card-title>
