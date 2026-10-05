@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
     <div class="product-row">
       <div class="product-info">
         <span class="product-name">{{ product().name }}</span>
-        <span class="product-price">{{ product().price }}</span>
+        <span class="product-price">{{ product().price }} zł</span>
       </div>
 
       <button mat-flat-button color="primary" class="add-btn" (click)="addProduct()">

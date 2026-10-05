@@ -18,7 +18,7 @@ import { MatDividerModule } from '@angular/material/divider';
             <div class="cart-item-row">
               <div class="item-info">
                 <span class="item-name">{{ product.data.name }}</span>
-                <span class="item-price">{{ product.data.price }}</span>
+                <span class="item-price">{{ product.data.price }} zł</span>
               </div>
 
               <button
