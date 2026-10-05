@@ -28,7 +28,11 @@ import { MatCardModule } from '@angular/material/card';
           <mat-divider class="my-4"></mat-divider>
 
           <div class="section-container">
-            <app-cart [cart]="cart" (removeProductEvent)="removeProduct($event)" />
+            <app-cart
+              [cart]="cart"
+              (removeProductEvent)="removeProduct($event)"
+              [products]="products"
+            />
           </div>
         </mat-card-content>
 
@@ -49,13 +53,16 @@ export class App {
 
   cart = new Array();
 
+  nextId = this.cart.length;
+
   addProduct(product: Product) {
     console.log('App is adding the product');
-    this.cart = [...this.cart, { data: product, idInCart: this.cart.length }];
-    console.log({ cart: this.cart });
+    this.cart = [...this.cart, { data: product, idInCart: this.nextId }];
+    this.nextId++;
   }
 
   removeProduct(productTRMV: number) {
-    this.cart = this.cart.filter((product) => product.idInCart !== productTRMV);
+    let firstFind = this.cart.find((item) => item.data.id === productTRMV);
+    this.cart = this.cart.filter((item) => item.idInCart !== firstFind.idInCart);
   }
 }

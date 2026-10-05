@@ -13,24 +13,24 @@ import { MatDividerModule } from '@angular/material/divider';
       <p class="empty-cart-msg">Koszyk jest pusty</p>
     } @else {
       <mat-list class="cart-material-list">
-        @for (product of cart(); track product.idInCart) {
-          <mat-list-item>
-            <div class="cart-item-row">
-              <div class="item-info">
-                <span class="item-name">{{ product.data.name }}</span>
-                <span class="item-price">{{ product.data.price }} zł</span>
-              </div>
+        @for (product of products(); track product.id) {
+          @if (cart().find((item) => item.data.id === product.id)) {
+            @let amount = cart().filter((item) => item.data.id === product.id).length;
+            <mat-list-item>
+              <div class="cart-item-row">
+                <div class="item-info">
+                  <span class="item-name">{{ product.name }} &nbsp; {{ amount }}x</span>
 
-              <button
-                mat-flat-button
-                class="remove-button"
-                (click)="removeProduct(product.idInCart)"
-              >
-                <mat-icon>delete</mat-icon>
-                <span>Usuń</span>
-              </button>
-            </div>
-          </mat-list-item>
+                  <span class="item-price">{{ product.price }} zł</span>
+                </div>
+
+                <button mat-flat-button class="remove-button" (click)="removeProduct(product.id)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Usuń</span>
+                </button>
+              </div>
+            </mat-list-item>
+          }
         }
       </mat-list>
 
@@ -45,6 +45,7 @@ import { MatDividerModule } from '@angular/material/divider';
 })
 export class Cart {
   readonly cart = input.required<{ idInCart: number; data: Product }[]>();
+  readonly products = input.required<Product[]>();
 
   price = computed(() => this.cart().reduce((acc, product) => acc + product.data.price, 0));
 
