@@ -27,10 +27,18 @@ import { MatDividerModule } from '@angular/material/divider';
                   <span class="item-price">{{ product.price }} zł</span>
                 </div>
 
-                <button mat-flat-button class="remove-button" (click)="removeProduct(product.id)">
-                  <mat-icon>delete</mat-icon>
-                  <span>Usuń</span>
-                </button>
+                <div class="cart-actions">
+                  <button mat-flat-button class="decrease-button" (click)="addProduct(product)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <button
+                    mat-flat-button
+                    class="increase-button remove-button"
+                    (click)="removeProduct(product.id)"
+                  >
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </div>
               </div>
             </mat-list-item>
           }
@@ -56,5 +64,17 @@ export class Cart {
 
   removeProduct(id: number) {
     this.productsService.removeProduct(id);
+    this.updatePrice();
+  }
+
+  addProduct(product: Product) {
+    this.productsService.addProduct(product);
+    this.updatePrice();
+  }
+
+  updatePrice() {
+    this.price = computed(() =>
+      this.productsService.getCart().reduce((acc, product) => acc + product.data.price, 0),
+    );
   }
 }
