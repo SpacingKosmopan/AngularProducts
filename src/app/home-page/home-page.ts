@@ -4,6 +4,9 @@ import { Component } from '@angular/core';
   imports: [],
   selector: 'app-home-page',
   styleUrl: './home-page.scss',
-  template: `This is home page`,
+  template: `<p>
+    Witam ciebie na stronie głównej. Możesz teraz przejść sobie do zakładki produktów, aby coś
+    wybrać, albo do koszyka, aby sfinalizować zamówienie.
+  </p>`,
 })
 export class HomePage {}

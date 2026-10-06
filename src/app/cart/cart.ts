@@ -1,4 +1,6 @@
-import { Component, input, output, computed } from '@angular/core';
+import { Component, input, output, computed, inject } from '@angular/core';
+import { ProductService } from '../products_base.service';
+
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,13 +11,14 @@ import { MatDividerModule } from '@angular/material/divider';
   selector: 'app-cart',
   styleUrl: './cart.scss',
   template: /*html*/ `
-    @if (cart().length === 0) {
+    @if (this.productsService.getCart().length === 0) {
       <p class="empty-cart-msg">Koszyk jest pusty</p>
     } @else {
       <mat-list class="cart-material-list">
-        @for (product of products(); track product.id) {
-          @if (cart().find((item) => item.data.id === product.id)) {
-            @let amount = cart().filter((item) => item.data.id === product.id).length;
+        @for (product of this.productsService.getProducts(); track product.id) {
+          @if (this.productsService.getCart().find((item) => item.data.id === product.id)) {
+            @let amount =
+              this.productsService.getCart().filter((item) => item.data.id === product.id).length;
             <mat-list-item>
               <div class="cart-item-row">
                 <div class="item-info">
@@ -44,14 +47,14 @@ import { MatDividerModule } from '@angular/material/divider';
   `,
 })
 export class Cart {
-  readonly cart = input.required<{ idInCart: number; data: Product }[]>();
-  readonly products = input.required<Product[]>();
+  // readonly cart = input.required<{ idInCart: number; data: Product }[]>();
+  productsService = inject(ProductService);
 
-  price = computed(() => this.cart().reduce((acc, product) => acc + product.data.price, 0));
-
-  readonly removeProductEvent = output<number>();
+  price = computed(() =>
+    this.productsService.getCart().reduce((acc, product) => acc + product.data.price, 0),
+  );
 
   removeProduct(id: number) {
-    this.removeProductEvent.emit(id);
+    this.productsService.removeProduct(id);
   }
 }

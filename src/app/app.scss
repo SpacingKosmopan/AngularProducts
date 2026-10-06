@@ -7,6 +7,10 @@ body {
   height: 100%;
 }
 
+a.active {
+  background-color: rgba(185, 185, 185, 0.2);
+}
+
 html {
   font-family:
     system-ui,
@@ -49,10 +53,6 @@ html {
       font-weight: 500;
 
       color: #333;
-    }
-
-    .section-container {
-      margin: 16px 0;
     }
 
     .my-4 {
