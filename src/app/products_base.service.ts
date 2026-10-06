@@ -1,4 +1,14 @@
 import { Service } from '@angular/core';
+import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
+
+export interface Order {
+  customer: string;
+  adress: string;
+  phone: string;
+  email: string;
+  date: string;
+  cart: Product[];
+}
 
 @Service()
 export class ProductService {
@@ -31,5 +41,19 @@ export class ProductService {
     let firstFind = this.cart.find((item) => item.data.id === productTRMV);
     if (firstFind === undefined) return;
     this.cart = this.cart.filter((item) => item.idInCart !== firstFind.idInCart);
+  }
+
+  placedOrders: { id: number; data: Order }[] = [];
+
+  nextOrderId = 0;
+
+  getOrders() {
+    return this.placedOrders;
+  }
+
+  placeOrder(data: Order) {
+    this.placedOrders.push({ id: this.nextOrderId, data: data });
+    this.nextOrderId++;
+    console.log($`data`);
   }
 }

@@ -5,9 +5,19 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardActions } from '@angular/material/card';
+
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [MatButtonModule, MatDividerModule, MatIconModule, MatListModule],
+  imports: [
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatListModule,
+    MatCardActions,
+    RouterLink,
+  ],
   selector: 'app-cart',
   styleUrl: './cart.scss',
   template: /*html*/ `
@@ -27,15 +37,11 @@ import { MatDividerModule } from '@angular/material/divider';
                   <span class="item-price">{{ product.price }} zł</span>
                 </div>
 
-                <div class="cart-actions">
-                  <button mat-flat-button class="decrease-button" (click)="addProduct(product)">
+                <div class="cart-product-actions">
+                  <button mat-flat-button (click)="addProduct(product)">
                     <mat-icon>add</mat-icon>
                   </button>
-                  <button
-                    mat-flat-button
-                    class="increase-button remove-button"
-                    (click)="removeProduct(product.id)"
-                  >
+                  <button mat-flat-button (click)="removeProduct(product.id)">
                     <mat-icon>remove</mat-icon>
                   </button>
                 </div>
@@ -51,6 +57,9 @@ import { MatDividerModule } from '@angular/material/divider';
         <span class="summary-label">RAZEM:</span>
         <span class="summary-value">{{ price() }} zł</span>
       </div>
+      <mat-card-actions class="cart-actions">
+        <button mat-raised-button color="primary" routerLink="/paying">Zamów</button>
+      </mat-card-actions>
     }
   `,
 })
@@ -62,6 +71,12 @@ export class Cart {
     this.productsService.getCart().reduce((acc, product) => acc + product.data.price, 0),
   );
 
+  updatePrice() {
+    this.price = computed(() =>
+      this.productsService.getCart().reduce((acc, product) => acc + product.data.price, 0),
+    );
+  }
+
   removeProduct(id: number) {
     this.productsService.removeProduct(id);
     this.updatePrice();
@@ -70,11 +85,5 @@ export class Cart {
   addProduct(product: Product) {
     this.productsService.addProduct(product);
     this.updatePrice();
-  }
-
-  updatePrice() {
-    this.price = computed(() =>
-      this.productsService.getCart().reduce((acc, product) => acc + product.data.price, 0),
-    );
   }
 }

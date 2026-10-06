@@ -1,0 +1,15 @@
+.payment-form {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .form-input-field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .final-payment-button {
+    max-width: 200px;
+  }
+}

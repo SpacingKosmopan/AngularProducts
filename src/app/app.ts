@@ -52,10 +52,6 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
         <mat-card-content>
           <router-outlet></router-outlet>
         </mat-card-content>
-
-        <mat-card-actions class="actions-container">
-          <button mat-raised-button color="primary">Action</button>
-        </mat-card-actions>
       </mat-card>
     </div>
   `,

@@ -95,3 +95,9 @@ $button-font-size: 0.9rem;
     font-size: 18px;
   }
 }
+
+.cart-actions {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 8px 0;
+}
