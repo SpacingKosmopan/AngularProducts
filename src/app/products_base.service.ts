@@ -7,12 +7,25 @@ export interface Order {
   email: string;
   date: string;
   cart: { data: Product; amount: number }[];
+  paymentMetod: PaymentMethod;
 }
 
 export interface CartProduct {
   idInCart: number;
   data: Product;
   amount: number;
+}
+
+export enum PaymentMethod {
+  BLIK = 'blik',
+  BANK_ACCOUNT = 'bank_account',
+  ON_DELIVERY = 'on_delivery', // default
+}
+
+export enum PaymentMethodPolish {
+  BLIK = 'Płatność BLIK',
+  BANK_ACCOUNT = 'Płatność kartą',
+  ON_DELIVERY = 'Płatność za pobraniem',
 }
 
 @Service()
@@ -76,7 +89,8 @@ export class ProductService {
     return this.nextOrderId - 1;
   }
 
-  getOrder(id: number): Order {
-    return this.placedOrders[id].data;
+  getOrder(id: number) {
+    console.log({ order: this.placedOrders[id] });
+    return this.placedOrders[id];
   }
 }

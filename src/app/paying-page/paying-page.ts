@@ -1,6 +1,6 @@
 import { Component, inject, computed, signal, AfterViewInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProductService } from '../products_base.service';
+import { PaymentMethod, ProductService } from '../products_base.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   imports: [
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
   ],
   selector: 'app-paying-page',
   styleUrl: './paying-page.scss',
@@ -51,6 +53,23 @@ import { Router } from '@angular/router';
           <mat-label>Adres wysyłki</mat-label
           ><input matInput type="text" formControlName="adress" />
         </mat-form-field>
+        <mat-radio-group class="form-input-field" label="Płatność" formControlName="payment">
+          <mat-radio-button value="blik">BLIK</mat-radio-button>
+          <mat-radio-button value="bank_account">Karta</mat-radio-button>
+          <mat-radio-button value="on_delivery">Płatność za pobraniem</mat-radio-button>
+        </mat-radio-group>
+        @if (paymentForm.value.payment === 'blik') {
+          <mat-form-field class="form-input-field">
+            <mat-label>Kod BLIK (XXXXXX)</mat-label
+            ><input matInput type="text" formControlName="blikCode" />
+          </mat-form-field>
+        }
+        @if (paymentForm.value.payment === 'bank_account') {
+          <mat-form-field class="form-input-field">
+            <mat-label>Numer konta bankowego</mat-label
+            ><input matInput type="text" formControlName="bankAccountNumber" />
+          </mat-form-field>
+        }
 
         <button
           mat-raised-button
@@ -73,7 +92,7 @@ export class PayingPage implements AfterViewInit {
 
   paymentProcess = signal(false);
 
-  private snackBar = inject(MatSnackBar);
+  snackBar = inject(MatSnackBar);
 
   price = this.getNewPrice();
 
@@ -102,6 +121,9 @@ export class PayingPage implements AfterViewInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', Validators.required),
     adress: new FormControl('', Validators.required),
+    payment: new FormControl(PaymentMethod.ON_DELIVERY, Validators.required),
+    blikCode: new FormControl('', Validators.pattern(/^\d{6}$/)),
+    bankAccountNumber: new FormControl(''),
   });
 
   loadingTimeRange = { min: 3000, max: 10000 };
@@ -110,6 +132,8 @@ export class PayingPage implements AfterViewInit {
 
   handleSubmit() {
     this.paymentProcess.set(true);
+
+    console.log(this.paymentForm.value);
 
     const randomLoadingTime = Math.floor(
       Math.random() * (this.loadingTimeRange.max - this.loadingTimeRange.min + 1) +
@@ -121,6 +145,25 @@ export class PayingPage implements AfterViewInit {
       Math.random() * (this.errorRange.max - this.errorRange.min + 1) + this.errorRange.min,
     );
     //console.log(randomErrorChance);
+
+    if (
+      (this.paymentForm.value.payment === 'blik' &&
+        this.paymentForm.get('blikCode')?.hasError('pattern')) ||
+      (this.paymentForm.value.payment === 'blik' && this.paymentForm.value.blikCode === '')
+    ) {
+      this.snackBar.open('Niepoprawny kod BLIK', '', {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+      });
+
+      return;
+    }
+
+    // TODO: Bank account number check
+    // TODO: Clear inputs
+    // TODO: Clear cart after successful payment
+    // TODO: Products page
 
     setTimeout(() => {
       this.paymentProcess.set(false);
@@ -143,6 +186,7 @@ export class PayingPage implements AfterViewInit {
               data,
               amount,
             })) || [],
+          paymentMetod: this.paymentForm.value.payment || PaymentMethod.ON_DELIVERY,
         });
 
         this.router.navigate([`/payment`], { queryParams: { 'order-id': orderId } });

@@ -22,10 +22,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ProductList {
   productsService = inject(ProductService);
 
-  private snackBar = inject(MatSnackBar);
+  snackBar = inject(MatSnackBar);
 
   addProduct(product: Product) {
-    console.log('Product on the list wants to be added');
     this.productsService.addProduct(product);
     this.snackBar.open('Dodano do koszyka', '', {
       duration: 2000,

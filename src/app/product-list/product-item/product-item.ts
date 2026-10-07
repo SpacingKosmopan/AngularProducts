@@ -26,7 +26,6 @@ export class ProductItem {
   readonly addProductEvent = output<Product>();
 
   addProduct() {
-    console.log('Product wants to be added');
     this.addProductEvent.emit(this.product());
   }
 }
