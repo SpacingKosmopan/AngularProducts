@@ -112,6 +112,12 @@ export class PayingPage implements AfterViewInit {
       horizontalPosition: 'right',
       verticalPosition: 'bottom',
     });
+
+    // payment type change
+    this.paymentForm.get('payment')?.valueChanges.subscribe((value) => {
+      this.paymentForm.controls.blikCode.reset();
+      this.paymentForm.controls.bankAccountNumber.reset();
+    });
   }
 
   router = inject(Router);
@@ -123,7 +129,7 @@ export class PayingPage implements AfterViewInit {
     adress: new FormControl('', Validators.required),
     payment: new FormControl(PaymentMethod.ON_DELIVERY, Validators.required),
     blikCode: new FormControl('', Validators.pattern(/^\d{6}$/)),
-    bankAccountNumber: new FormControl(''),
+    bankAccountNumber: new FormControl('', Validators.pattern(/^\d{26}$/)),
   });
 
   loadingTimeRange = { min: 3000, max: 10000 };
@@ -173,9 +179,6 @@ export class PayingPage implements AfterViewInit {
       return;
     }
 
-    // TODO: Bank account number check
-    // TODO: Clear inputs
-    // TODO: Clear cart after successful payment
     // TODO: Products page
 
     this.paymentProcess.set(true);

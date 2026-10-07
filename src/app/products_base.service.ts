@@ -86,6 +86,7 @@ export class ProductService {
   placeOrder(data: Order) {
     this.placedOrders.push({ id: this.nextOrderId, data: data });
     this.nextOrderId++;
+    this.cart = [];
     return this.nextOrderId - 1;
   }
 
