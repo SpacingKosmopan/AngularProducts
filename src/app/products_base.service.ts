@@ -1,5 +1,4 @@
 import { Service } from '@angular/core';
-import { consumerPollProducersForChange } from '@angular/core/primitives/signals';
 
 export interface Order {
   customer: string;
@@ -7,7 +6,7 @@ export interface Order {
   phone: string;
   email: string;
   date: string;
-  cart: Product[];
+  cart: { data: Product; amount: number }[];
 }
 
 export interface CartProduct {
@@ -74,6 +73,10 @@ export class ProductService {
   placeOrder(data: Order) {
     this.placedOrders.push({ id: this.nextOrderId, data: data });
     this.nextOrderId++;
-    console.log(data);
+    return this.nextOrderId - 1;
+  }
+
+  getOrder(id: number): Order {
+    return this.placedOrders[id].data;
   }
 }

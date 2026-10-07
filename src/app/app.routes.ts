@@ -1,25 +1,30 @@
 import { Routes } from '@angular/router';
 
-import { Cart } from './cart/cart';
-import { ProductList } from './product-list/product-list';
 import { HomePage } from './home-page/home-page';
-import { PayingPage } from './paying-page/paying-page/paying-page';
 
 export const routes: Routes = [
   { path: '', title: 'Strona główna', component: HomePage },
   {
     path: 'products',
     title: 'Produkty',
-    component: ProductList,
+    //component: ProductList,
+    loadComponent: () => import('./product-list/product-list').then((c) => c.ProductList),
   },
   {
     path: 'cart',
     title: 'Koszyk',
-    component: Cart,
+    //component: Cart,
+    loadComponent: () => import('./cart/cart').then((c) => c.Cart),
   },
   {
     path: 'paying',
     title: 'Zakupy',
-    component: PayingPage,
+    //component: PayingPage,
+    loadComponent: () => import('./paying-page/paying-page').then((c) => c.PayingPage),
+  },
+  {
+    path: 'payment',
+    title: 'Podsumowanie zakupu',
+    loadComponent: () => import('./payment-page/payment-page').then((c) => c.PaymentPage),
   },
 ];
