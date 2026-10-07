@@ -74,6 +74,6 @@ export class ProductService {
   placeOrder(data: Order) {
     this.placedOrders.push({ id: this.nextOrderId, data: data });
     this.nextOrderId++;
-    console.log(`${data}`);
+    console.log(data);
   }
 }

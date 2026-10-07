@@ -7,9 +7,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Order } from '../../products_base.service';
+import { CommonModule } from '@angular/common'; // do ngIf
 
 @Component({
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   selector: 'app-paying-page',
   styleUrl: './paying-page.scss',
   template: /*html*/ `<h3>Podsumowanie zamówienia</h3>
@@ -30,22 +31,24 @@ import { Order } from '../../products_base.service';
         Razem: <b>{{ price() }}zł</b>
       </p>
 
-      <form [formGroup]="paymentForm" (ngSubmit)="handleSubmit()" class="payment-form">
+      <form [formGroup]="paymentForm" (ngSubmit)="handleSubmit()" class="payment-form" novalidate>
         <mat-form-field class="form-input-field">
-          <label for="name">Imię i nazwisko</label>
-          <input matInput type="text" formControlName="name" required />
+          <mat-label>Imię i nazwisko</mat-label>
+          <input matInput type="text" formControlName="name" />
         </mat-form-field>
         <mat-form-field class="form-input-field">
-          <label for="email">E-Mail</label
-          ><input matInput type="text" formControlName="email" required />
+          <mat-label>E-Mail</mat-label><input matInput type="text" formControlName="email" />
+          <mat-error *ngIf="paymentForm.get('email')?.hasError('email')"
+            >Podaj poprawny E-Mail</mat-error
+          >
         </mat-form-field>
         <mat-form-field class="form-input-field">
-          <label for="phone">Telefon kontaktowy</label
-          ><input matInput type="text" formControlName="phone" required />
+          <mat-label>Telefon kontaktowy</mat-label
+          ><input matInput type="text" formControlName="phone" />
         </mat-form-field>
         <mat-form-field class="form-input-field">
-          <label for="adress">Adres wysyłki</label
-          ><input matInput type="text" formControlName="adress" required />
+          <mat-label>Adres wysyłki</mat-label
+          ><input matInput type="text" formControlName="adress" />
         </mat-form-field>
 
         <button
@@ -91,7 +94,6 @@ export class PayingPage {
   });
 
   handleSubmit() {
-
     this.productsService.placeOrder({
       customer: this.paymentForm.value.name || '',
       adress: this.paymentForm.value.adress || '',
