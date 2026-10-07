@@ -27,4 +27,9 @@ export const routes: Routes = [
     title: 'Podsumowanie zakupu',
     loadComponent: () => import('./payment-page/payment-page').then((c) => c.PaymentPage),
   },
+  {
+    path: 'product',
+    title: 'Produkt',
+    loadComponent: () => import('./product-page/product-page').then((c) => c.ProductPage),
+  },
 ];

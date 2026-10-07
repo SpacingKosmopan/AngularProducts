@@ -1,14 +1,15 @@
 import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, RouterLink],
   selector: 'app-product-item',
   styleUrl: './product-item.scss',
   template: /*html*/ `
     <div class="product-row">
-      <div class="product-info">
+      <div class="product-info" routerLink="/">
         <span class="product-name">{{ product().name }}</span>
         <span class="product-price">{{ product().price }} zł</span>
       </div>

@@ -41,6 +41,10 @@ export class ProductService {
     return this.products;
   }
 
+  getProduct(id: number): Product {
+    return this.products[id];
+  }
+
   cart: CartProduct[] = [];
 
   getCart(): CartProduct[] {

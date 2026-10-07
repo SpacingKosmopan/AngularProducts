@@ -9,17 +9,32 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
+    min-width: 200px;
 
     .product-name {
       font-size: 16px;
       font-weight: 500;
       color: #1e293b;
+      transition: 0.3s ease-in-out;
+      border-top: 3px solid;
+      border-image: linear-gradient(to right, rgb(111, 0, 255) 0%, #0000 1%, #0000 100%) 1;
     }
 
     .product-price {
       font-size: 14px;
       color: #64748b;
       font-weight: 4--;
+    }
+  }
+
+  .product-info:hover {
+    cursor: pointer;
+    .product-name {
+      color: blue;
+      transition: 0.3s ease-in-out;
+      letter-spacing: 10px;
+      border-top: 3px solid;
+      border-image: linear-gradient(to right, rgb(111, 0, 255), #0000 99%, #fff0 100%) 1;
     }
   }
 
