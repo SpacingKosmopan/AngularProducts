@@ -91,7 +91,6 @@ export class PayingPage {
   });
 
   handleSubmit() {
-    alert(`${this.paymentForm.value.name} wants to make a payment`);
 
     this.productsService.placeOrder({
       customer: this.paymentForm.value.name || '',

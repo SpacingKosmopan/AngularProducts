@@ -10,6 +10,12 @@ export interface Order {
   cart: Product[];
 }
 
+export interface CartProduct {
+  idInCart: number;
+  data: Product;
+  amount: number;
+}
+
 @Service()
 export class ProductService {
   products = [
@@ -23,24 +29,38 @@ export class ProductService {
     return this.products;
   }
 
-  cart: { idInCart: number; data: Product }[] = [];
+  cart: CartProduct[] = [];
 
-  getCart(): { idInCart: number; data: Product }[] {
+  getCart(): CartProduct[] {
     return this.cart;
   }
 
   nextId = this.cart.length;
 
   addProduct(product: Product) {
-    console.log('App is adding the product');
-    this.cart = [...this.cart, { data: product, idInCart: this.nextId }];
+    // array items are objects => find() returs mutable reference
+    let firstFind = this.cart.find((item) => item.data.id === product.id);
+    if (firstFind === undefined) {
+      this.cart = [...this.cart, { data: product, idInCart: this.nextId, amount: 1 }];
+    } else firstFind.amount += 1;
+
     this.nextId++;
   }
 
   removeProduct(productTRMV: number) {
+    // array items are objects => find() returs mutable reference
     let firstFind = this.cart.find((item) => item.data.id === productTRMV);
     if (firstFind === undefined) return;
-    this.cart = this.cart.filter((item) => item.idInCart !== firstFind.idInCart);
+    else {
+      if (firstFind.amount === 1) {
+        const answer = window.confirm('Czy na pewno chcesz usunąć dany produkt z koszyka?');
+        if (!answer) return;
+      }
+      firstFind.amount -= 1;
+    }
+
+    if (firstFind.amount === 0)
+      this.cart = this.cart.filter((item) => item.idInCart !== firstFind.idInCart);
   }
 
   placedOrders: { id: number; data: Order }[] = [];
@@ -54,6 +74,6 @@ export class ProductService {
   placeOrder(data: Order) {
     this.placedOrders.push({ id: this.nextOrderId, data: data });
     this.nextOrderId++;
-    console.log($`data`);
+    console.log(`${data}`);
   }
 }
