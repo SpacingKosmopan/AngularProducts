@@ -131,8 +131,6 @@ export class PayingPage implements AfterViewInit {
   errorChancePercent = 10;
 
   handleSubmit() {
-    this.paymentProcess.set(true);
-
     console.log(this.paymentForm.value);
 
     const randomLoadingTime = Math.floor(
@@ -146,6 +144,7 @@ export class PayingPage implements AfterViewInit {
     );
     //console.log(randomErrorChance);
 
+    // blik code
     if (
       (this.paymentForm.value.payment === 'blik' &&
         this.paymentForm.get('blikCode')?.hasError('pattern')) ||
@@ -160,10 +159,26 @@ export class PayingPage implements AfterViewInit {
       return;
     }
 
+    // account number
+    if (
+      this.paymentForm.value.payment === 'bank_account' &&
+      this.paymentForm.value.bankAccountNumber?.length !== 26
+    ) {
+      this.snackBar.open('Niepoprawny numer konta bankowego', '', {
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+      });
+
+      return;
+    }
+
     // TODO: Bank account number check
     // TODO: Clear inputs
     // TODO: Clear cart after successful payment
     // TODO: Products page
+
+    this.paymentProcess.set(true);
 
     setTimeout(() => {
       this.paymentProcess.set(false);
