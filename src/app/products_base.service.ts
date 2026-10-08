@@ -31,10 +31,10 @@ export enum PaymentMethodPolish {
 @Service()
 export class ProductService {
   products = [
-    { id: 1, name: 'Klawiatura', price: 199 },
-    { id: 2, name: 'Mysz', price: 99 },
-    { id: 3, name: 'Monitor', price: 899 },
-    { id: 4, name: 'Słuchawki', price: 149 },
+    { id: 1, name: 'Klawiatura', price: 199, imageSrc: './' },
+    { id: 2, name: 'Mysz', price: 99, imageSrc: 'assets/images/mouse.webp' },
+    { id: 3, name: 'Monitor', price: 899, imageSrc: './' },
+    { id: 4, name: 'Słuchawki', price: 149, imageSrc: './' },
   ];
 
   getProducts(): Product[] {

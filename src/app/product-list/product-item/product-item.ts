@@ -9,7 +9,12 @@ import { RouterLink } from '@angular/router';
   styleUrl: './product-item.scss',
   template: /*html*/ `
     <div class="product-row">
-      <div class="product-info" routerLink="/">
+      <div
+        class="product-info"
+        routerLink="/product"
+        [queryParams]="{ product_id: product().id }"
+        title="Kliknij, aby przejść do strony produktu"
+      >
         <span class="product-name">{{ product().name }}</span>
         <span class="product-price">{{ product().price }} zł</span>
       </div>
