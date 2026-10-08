@@ -3,16 +3,18 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../products_base.service';
 import { MatCardModule } from '@angular/material/card';
 import { NgOptimizedImage } from '@angular/common';
+import InnerImageZoom from 'inner-image-zoom';
 
 @Component({
   imports: [MatCardModule, NgOptimizedImage],
   selector: 'app-product-page',
   styleUrl: './product-page.scss',
   template: ` @if (product) {
-      {{ product.name }}
       <mat-card class="main-product-card">
         <mat-card-content
-          ><img [ngSrc]="product.imageSrc" alt="Product image" width="100" height="100" />
+          ><div class="iiz">
+            <img [ngSrc]="product.imageSrc" alt="Product image" fill style="object-fit: cover;" />
+          </div>
         </mat-card-content>
 
         <mat-card-content>
