@@ -1,1 +1,40 @@
-<router-outlet />
+<div class="main-wrapper">
+  <mat-card class="main-card">
+    <mat-card-header>
+      <mat-card-title>Sklep</mat-card-title>
+    </mat-card-header>
+
+    <mat-toolbar color="primary">
+      <a
+        mat-button
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <mat-icon>home</mat-icon>
+        Strona główna
+      </a>
+
+      <a mat-button routerLink="/products" routerLinkActive="active">
+        <mat-icon>shopping_bag</mat-icon>
+        Produkty
+      </a>
+
+      <div class="cart-menu">
+        <a mat-button routerLink="/cart" routerLinkActive="active">
+          <mat-icon>shopping_cart</mat-icon>
+          Koszyk
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </a>
+
+        <div class="cart-preview">
+          <app-cart></app-cart>
+        </div>
+      </div>
+    </mat-toolbar>
+
+    <mat-card-content>
+      <router-outlet></router-outlet>
+    </mat-card-content>
+  </mat-card>
+</div>

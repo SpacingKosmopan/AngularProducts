@@ -6,15 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-list',
-  template: /*html*/ `
-    <mat-list class="product-material-list">
-      @for (product of this.productsService.getProducts(); track product.id) {
-        <mat-list-item class="product-list-item">
-          <app-product-item [product]="product" (addProductEvent)="addProduct($event)" />
-        </mat-list-item>
-      }
-    </mat-list>
-  `,
+  templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
   imports: [ProductItem, MatListModule],
 })

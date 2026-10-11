@@ -1,0 +1,52 @@
+@if (product) {
+  <mat-card class="main-product-card">
+    <div class="product-layout">
+      <div class="product-image">
+        <img
+          [src]="product.imageSrc"
+          [redZoom]="product.imageSrc"
+          redZoomClass="red-zoom--style--window"
+          redZoomBehavior="hover"
+          alt="Zdjęcie produktu"
+        />
+      </div>
+
+      <div class="product-details">
+        <h1 class="product-title">{{ product.name }}</h1>
+
+        <p class="product-description">{{ product.description }}</p>
+
+        <p class="product-price">{{ product.price }} zł</p>
+
+        <p class="product-review-grade">{{ avgReview() }} <mat-icon>star-fill</mat-icon></p>
+
+        <div class="product-actions">
+          <button mat-raised-button color="primary" (click)="addThisToCart()">
+            Dodaj do koszyka
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <h2>Oceny</h2>
+
+  @if (product.reviews && product.reviews.length > 0) {
+    <mat-card style="margin-top: 16px">
+      <mat-list class="product-material-list">
+        @for (review of product.reviews; track review.id) {
+          <mat-list-item class="product-list-item">
+            <p class="review-row">
+              <span class="review-value"> <mat-icon>star-fill</mat-icon> {{ review.value }} </span>
+              {{ review.content }}
+            </p>
+          </mat-list-item>
+        }
+      </mat-list>
+    </mat-card>
+  } @else {
+    <p style="margin-top: 16px; padding: 16px">Ten produkt nie ma jeszcze żadnych opinii.</p>
+  }
+} @else {
+  <p>Nie znaleziono produktu.</p>
+}

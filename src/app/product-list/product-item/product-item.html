@@ -1,0 +1,25 @@
+<div class="product-row">
+  <div
+    class="product-info"
+    routerLink="/product"
+    [queryParams]="{ product_id: product().id }"
+    title="Kliknij, aby przejść do strony produktu"
+  >
+    <img
+      [src]="product().imageSrc"
+      [redZoom]="product().imageSrc"
+      redZoomClass="red-zoom--style--window"
+      redZoomBehavior="hover"
+      [alt]="product().name"
+      class="product-image"
+    />
+    <div class="product-details">
+      <span class="product-name">{{ product().name }}</span>
+      <span class="product-price">{{ product().price }} zł</span>
+    </div>
+  </div>
+
+  <button mat-flat-button color="primary" class="add-btn" (click)="addProduct()">
+    <mat-icon>add_shopping_cart</mat-icon>Dodaj do koszyka
+  </button>
+</div>

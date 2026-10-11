@@ -1,0 +1,64 @@
+<h3>Podsumowanie zamówienia</h3>
+@if (this.productsService.getCart().length === 0) {
+  <p>Twój koszyk jest pusty. Najpierw coś dodaj</p>
+} @else {
+  <p>
+    @for (product of this.productsService.getCart(); track product.idInCart) {
+      {{ product.data.name }} {{ product.amount }}x
+    }
+  </p>
+  <p>
+    Razem: <b>{{ price() }}zł</b>
+  </p>
+
+  <form [formGroup]="paymentForm" (ngSubmit)="handleSubmit()" class="payment-form" novalidate>
+    <mat-form-field class="form-input-field">
+      <mat-label>Imię i nazwisko</mat-label>
+      <input matInput type="text" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field class="form-input-field">
+      <mat-label>E-Mail</mat-label><input matInput type="text" formControlName="email" />
+      @if (paymentForm.get('email')?.hasError('email')) {
+        <mat-error>Podaj poprawny E-Mail</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="form-input-field">
+      <mat-label>Telefon kontaktowy</mat-label
+      ><input matInput type="text" formControlName="phone" />
+    </mat-form-field>
+    <mat-form-field class="form-input-field">
+      <mat-label>Adres wysyłki</mat-label><input matInput type="text" formControlName="adress" />
+    </mat-form-field>
+    <mat-radio-group class="form-input-field" label="Płatność" formControlName="payment">
+      <mat-radio-button value="blik">BLIK</mat-radio-button>
+      <mat-radio-button value="bank_account">Karta</mat-radio-button>
+      <mat-radio-button value="on_delivery">Płatność za pobraniem</mat-radio-button>
+    </mat-radio-group>
+    @if (paymentForm.value.payment === 'blik') {
+      <mat-form-field class="form-input-field">
+        <mat-label>Kod BLIK (XXXXXX)</mat-label
+        ><input matInput type="text" formControlName="blikCode" />
+      </mat-form-field>
+    }
+    @if (paymentForm.value.payment === 'bank_account') {
+      <mat-form-field class="form-input-field">
+        <mat-label>Numer konta bankowego</mat-label
+        ><input matInput type="text" formControlName="bankAccountNumber" />
+      </mat-form-field>
+    }
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!paymentForm.valid || paymentProcess()"
+      class="final-payment-button"
+    >
+      @if (!paymentProcess()) {
+        Zamów
+      } @else {
+        W toku... <mat-spinner diameter="20"></mat-spinner>
+      }
+    </button>
+  </form>
+}

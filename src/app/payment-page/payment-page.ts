@@ -10,26 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatListModule, RouterLink, MatButtonModule, MatIconModule],
   selector: 'app-payment-page',
   styleUrl: './payment-page.scss',
-  template: ` @if (order) {
-      <p>Zakup został sfinalizowany <mat-icon>check</mat-icon></p>
-      <h3>Podsumowanie tranzakcji</h3>
-
-      <p>
-        {{ order.data.customer }}, {{ order.data.adress }},
-        {{ order.data.paymentMetod }}
-      </p>
-      <mat-list>
-        @for (product of order.data.cart; track product.data.id) {
-          <mat-list-item
-            >{{ product.data.name }} {{ product.amount }}x -
-            {{ product.data.price * product.amount }}zł</mat-list-item
-          >
-        }
-      </mat-list>
-
-      <p>Przewidywana dostawa: <b>za 1.4 mld lat</b></p>
-    }
-    <a mat-raised-button routerLink="/products">Powrót</a>`,
+  templateUrl: './payment-page.html',
 })
 export class PaymentPage implements AfterViewInit {
   route = inject(ActivatedRoute);
