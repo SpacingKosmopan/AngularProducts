@@ -6,6 +6,8 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
+import { Cart } from './cart/cart';
+
 @Component({
   selector: 'app-root',
   imports: [
@@ -15,9 +17,9 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
     RouterLink,
     RouterOutlet,
     RouterLinkActive,
-    MatButtonModule,
     MatToolbar,
     MatIcon,
+    Cart,
   ],
   styleUrl: './app.scss',
   template: /*html*/ `
@@ -43,10 +45,17 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
             Produkty
           </a>
 
-          <a mat-button routerLink="/cart" routerLinkActive="active">
-            <mat-icon>shopping_cart</mat-icon>
-            Koszyk
-          </a>
+          <div class="cart-menu">
+            <a mat-button routerLink="/cart" routerLinkActive="active">
+              <mat-icon>shopping_cart</mat-icon>
+              Koszyk
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </a>
+
+            <div class="cart-preview">
+              <app-cart></app-cart>
+            </div>
+          </div>
         </mat-toolbar>
 
         <mat-card-content>
