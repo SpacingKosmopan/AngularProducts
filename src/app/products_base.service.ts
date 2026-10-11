@@ -37,6 +37,7 @@ export class ProductService {
       price: 199,
       imageSrc: 'assets/images/keyboard.webp',
       description: 'Myszka++',
+      reviews: [{ id: 0, value: 5, content: 'No fajna taka, klika se i wgl' }],
     },
     {
       id: 1,
@@ -44,6 +45,7 @@ export class ProductService {
       price: 99,
       imageSrc: 'assets/images/mouse.webp',
       description: 'Kliku klik, tu i tam, pracuj pracuj',
+      reviews: [],
     },
     {
       id: 2,
@@ -51,6 +53,7 @@ export class ProductService {
       price: 899,
       imageSrc: 'assets/images/screen.webp',
       description: 'Kolorowe ruchome pudełko',
+      reviews: [],
     },
     {
       id: 3,
@@ -58,6 +61,7 @@ export class ProductService {
       price: 149,
       imageSrc: 'assets/images/headphones.webp',
       description: 'Takie fajne, dwuuszne, można nałożyć na głowę, nie wiem jak działają',
+      reviews: [],
     },
   ];
 
