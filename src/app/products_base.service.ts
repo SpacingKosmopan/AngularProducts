@@ -1,4 +1,4 @@
-import { Service } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 export interface Order {
   customer: string;
@@ -28,7 +28,7 @@ export enum PaymentMethodPolish {
   ON_DELIVERY = 'Płatność za pobraniem',
 }
 
-@Service()
+@Injectable({ providedIn: 'root' })
 export class ProductService {
   products = [
     {
@@ -69,38 +69,54 @@ export class ProductService {
     return this.products[id];
   }
 
-  cart: CartProduct[] = [];
+  cart = signal<CartProduct[]>([]);
 
   getCart(): CartProduct[] {
-    return this.cart;
+    return this.cart();
   }
 
-  nextId = this.cart.length;
+  nextId = 0;
 
   addProduct(product: Product) {
-    // array items are objects => find() returs mutable reference
-    let firstFind = this.cart.find((item) => item.data.id === product.id);
-    if (firstFind === undefined) {
-      this.cart = [...this.cart, { data: product, idInCart: this.nextId, amount: 1 }];
-    } else firstFind.amount += 1;
+    this.cart.update((cart) => {
+      const existing = cart.find((item) => item.data.id === product.id);
 
-    this.nextId++;
+      if (existing) {
+        return cart.map((item) =>
+          item.data.id === product.id ? { ...item, amount: item.amount + 1 } : item,
+        );
+      }
+
+      return [
+        ...cart,
+        {
+          data: product,
+          idInCart: this.nextId++,
+          amount: 1,
+        },
+      ];
+    });
   }
 
-  removeProduct(productTRMV: number) {
-    // array items are objects => find() returs mutable reference
-    let firstFind = this.cart.find((item) => item.data.id === productTRMV);
-    if (firstFind === undefined) return;
-    else {
-      if (firstFind.amount === 1) {
-        const answer = window.confirm('Czy na pewno chcesz usunąć dany produkt z koszyka?');
-        if (!answer) return;
-      }
-      firstFind.amount -= 1;
+  removeProduct(productId: number) {
+    const existing = this.cart().find((item) => item.data.id === productId);
+
+    if (!existing) return;
+
+    if (
+      existing.amount === 1 &&
+      !window.confirm('Czy na pewno chcesz usunąć dany produkt z koszyka?')
+    ) {
+      return;
     }
 
-    if (firstFind.amount === 0)
-      this.cart = this.cart.filter((item) => item.idInCart !== firstFind.idInCart);
+    this.cart.update((cart) =>
+      existing.amount === 1
+        ? cart.filter((item) => item.data.id !== productId)
+        : cart.map((item) =>
+            item.data.id === productId ? { ...item, amount: item.amount - 1 } : item,
+          ),
+    );
   }
 
   placedOrders: { id: number; data: Order }[] = [];
@@ -114,7 +130,7 @@ export class ProductService {
   placeOrder(data: Order) {
     this.placedOrders.push({ id: this.nextOrderId, data: data });
     this.nextOrderId++;
-    this.cart = [];
+    this.cart.set([]);
     return this.nextOrderId - 1;
   }
 

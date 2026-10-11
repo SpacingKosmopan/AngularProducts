@@ -62,23 +62,17 @@ import { RouterLink } from '@angular/router';
 export class Cart {
   productsService = inject(ProductService);
 
-  price = this.getNewPrice();
-
-  getNewPrice() {
-    return computed(() =>
-      this.productsService
-        .getCart()
-        .reduce((acc, product) => acc + product.data.price * product.amount, 0),
-    );
-  }
+  price = computed(() =>
+    this.productsService
+      .getCart()
+      .reduce((acc, product) => acc + product.data.price * product.amount, 0),
+  );
 
   removeProduct(id: number) {
     this.productsService.removeProduct(id);
-    this.price = this.getNewPrice();
   }
 
   addProduct(product: Product) {
     this.productsService.addProduct(product);
-    this.price = this.getNewPrice();
   }
 }
