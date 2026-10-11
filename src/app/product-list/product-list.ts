@@ -2,7 +2,6 @@ import { Component, input, inject } from '@angular/core';
 import { ProductService } from '../products_base.service';
 import { ProductItem } from './product-item/product-item';
 import { MatListModule } from '@angular/material/list';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

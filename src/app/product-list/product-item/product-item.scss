@@ -7,9 +7,24 @@
 
   .product-info {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    flex-direction: row; 
+    align-items: center;
+    gap: 16px;
     min-width: 200px;
+
+    .product-image {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 8px;
+      background-color: #f1f5f9;
+    }
+
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
     .product-name {
       font-size: 16px;
@@ -23,12 +38,13 @@
     .product-price {
       font-size: 14px;
       color: #64748b;
-      font-weight: 4--;
+      font-weight: 400; 
     }
   }
 
   .product-info:hover {
     cursor: pointer;
+
     .product-name {
       color: blue;
       transition: 0.3s ease-in-out;
@@ -54,3 +70,4 @@
     }
   }
 }
+

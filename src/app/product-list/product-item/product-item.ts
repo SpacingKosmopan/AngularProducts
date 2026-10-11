@@ -2,9 +2,10 @@ import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { RedZoomDirective } from '@insightfulio/ngx-red-zoom';
 
 @Component({
-  imports: [MatButtonModule, MatIconModule, RouterLink],
+  imports: [MatButtonModule, MatIconModule, RouterLink, RedZoomDirective],
   selector: 'app-product-item',
   styleUrl: './product-item.scss',
   template: /*html*/ `
@@ -15,8 +16,18 @@ import { RouterLink } from '@angular/router';
         [queryParams]="{ product_id: product().id }"
         title="Kliknij, aby przejść do strony produktu"
       >
-        <span class="product-name">{{ product().name }}</span>
-        <span class="product-price">{{ product().price }} zł</span>
+        <img
+          [src]="product().imageSrc"
+          [redZoom]="product().imageSrc"
+          redZoomClass="red-zoom--style--window"
+          redZoomBehavior="hover"
+          [alt]="product().name"
+          class="product-image"
+        />
+        <div class="product-details">
+          <span class="product-name">{{ product().name }}</span>
+          <span class="product-price">{{ product().price }} zł</span>
+        </div>
       </div>
 
       <button mat-flat-button color="primary" class="add-btn" (click)="addProduct()">

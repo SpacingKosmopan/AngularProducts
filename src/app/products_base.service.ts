@@ -31,10 +31,34 @@ export enum PaymentMethodPolish {
 @Service()
 export class ProductService {
   products = [
-    { id: 1, name: 'Klawiatura', price: 199, imageSrc: './' },
-    { id: 2, name: 'Mysz', price: 99, imageSrc: 'assets/images/mouse.webp' },
-    { id: 3, name: 'Monitor', price: 899, imageSrc: './' },
-    { id: 4, name: 'Słuchawki', price: 149, imageSrc: './' },
+    {
+      id: 0,
+      name: 'Klawiatura',
+      price: 199,
+      imageSrc: 'assets/images/keyboard.webp',
+      description: 'Myszka++',
+    },
+    {
+      id: 1,
+      name: 'Mysz',
+      price: 99,
+      imageSrc: 'assets/images/mouse.webp',
+      description: 'Kliku klik, tu i tam, pracuj pracuj',
+    },
+    {
+      id: 2,
+      name: 'Monitor',
+      price: 899,
+      imageSrc: 'assets/images/screen.webp',
+      description: 'Kolorowe ruchome pudełko',
+    },
+    {
+      id: 3,
+      name: 'Słuchawki',
+      price: 149,
+      imageSrc: 'assets/images/headphones.webp',
+      description: 'Takie fajne, dwuuszne, można nałożyć na głowę, nie wiem jak działają',
+    },
   ];
 
   getProducts(): Product[] {

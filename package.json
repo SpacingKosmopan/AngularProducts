@@ -22,8 +22,8 @@
     "@angular/platform-server": "^22.2.0",
     "@angular/router": "^22.2.0",
     "@angular/ssr": "^22.2.0",
+    "@insightfulio/ngx-red-zoom": "^22.0.0",
     "express": "^5.1.0",
-    "inner-image-zoom": "^1.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

@@ -27,7 +27,7 @@ import { MatRadioModule } from '@angular/material/radio';
     } @else {
       <p>
         @for (product of this.productsService.getCart(); track product.idInCart) {
-          {{ product.data.name }} - {{ product.amount }}x
+          {{ product.data.name }} {{ product.amount }}x
         }
       </p>
       <p>
