@@ -2,12 +2,11 @@
   <mat-card class="main-product-card">
     <div class="product-layout">
       <div class="product-image">
-        <img
-          [src]="product.imageSrc"
-          [redZoom]="product.imageSrc"
-          redZoomClass="red-zoom--style--window"
-          redZoomBehavior="hover"
+        <lib-ngx-image-zoom
+          [thumbImage]="product.imageSrc"
+          [fullImage]="product.imageSrc"
           alt="Zdjęcie produktu"
+          [magnification]="100"
         />
       </div>
 

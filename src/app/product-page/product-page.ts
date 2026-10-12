@@ -2,15 +2,16 @@ import { Component, inject, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../products_base.service';
 import { MatCardModule } from '@angular/material/card';
-import { RedZoomDirective } from '@insightfulio/ngx-red-zoom';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 
+import { NgxImageZoomModule } from 'ngx-image-zoom';
+
 @Component({
   selector: 'app-product-page',
-  imports: [MatCardModule, RedZoomDirective, MatButtonModule, MatIconModule, MatListModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatListModule, NgxImageZoomModule],
   styleUrl: './product-page.scss',
   templateUrl: './product-page.html',
 })

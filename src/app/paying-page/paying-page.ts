@@ -115,8 +115,6 @@ export class PayingPage implements AfterViewInit {
       return;
     }
 
-    // TODO: Products page
-
     this.paymentProcess.set(true);
 
     setTimeout(() => {
