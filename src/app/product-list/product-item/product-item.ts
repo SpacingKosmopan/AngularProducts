@@ -2,10 +2,9 @@ import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { RedZoomDirective } from '@insightfulio/ngx-red-zoom';
 
 @Component({
-  imports: [MatButtonModule, MatIconModule, RouterLink, RedZoomDirective],
+  imports: [MatButtonModule, MatIconModule, RouterLink],
   selector: 'app-product-item',
   styleUrl: './product-item.scss',
   templateUrl: './product-item.html',
