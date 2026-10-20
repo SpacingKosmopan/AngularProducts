@@ -1,7 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
+from .database import engine, Base, get_db
 from .models import Item
+from .schemas import ItemCreate
 from .routers import items
 
 Base.metadata.create_all(bind=engine)
