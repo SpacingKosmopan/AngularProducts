@@ -1,4 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Order {
   customer: string;
@@ -30,6 +32,9 @@ export enum PaymentMethodPolish {
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
+  http = inject(HttpClient);
+  baseUrl = 'http://localhost:8000';
+
   products: Product[] = [
     {
       id: 0,
@@ -65,8 +70,8 @@ export class ProductService {
     },
   ];
 
-  getProducts(): Product[] {
-    return this.products;
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.baseUrl}/products`);
   }
 
   getProduct(id: number): Product {

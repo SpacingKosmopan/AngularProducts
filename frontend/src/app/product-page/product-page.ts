@@ -1,6 +1,6 @@
 import { Component, inject, computed } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../products_base.service';
+import { ProductService } from '../products.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';

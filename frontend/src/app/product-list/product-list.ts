@@ -1,5 +1,5 @@
 import { Component, input, inject } from '@angular/core';
-import { ProductService } from '../products_base.service';
+import { ProductService } from '../products.service';
 import { ProductItem } from './product-item/product-item';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,6 +12,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProductList {
   productsService = inject(ProductService);
+
+  products: Product[] = [];
+
+  ngOnInit() {
+    this.productsService.getProducts().subscribe({
+      next: (data) => (this.products = data),
+      error: (err) => console.error(err),
+    });
+  }
 
   snackBar = inject(MatSnackBar);
 

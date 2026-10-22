@@ -1,6 +1,6 @@
 import { Component, inject, computed, signal, AfterViewInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PaymentMethod, ProductService } from '../products_base.service';
+import { PaymentMethod, ProductService } from '../products.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';

@@ -1,6 +1,6 @@
 import { Component, inject, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../products_base.service';
+import { ProductService } from '../products.service';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
