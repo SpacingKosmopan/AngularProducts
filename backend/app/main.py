@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base, get_db
@@ -37,6 +37,13 @@ def create_product(product: ProductCreate, db: Session = Depends(get_db)):
 def get_products(db: Session = Depends(get_db)):
     return db.query(ProductModel).all()
 
+@app.get("/products/{productId}", response_model=Product)
+def get_proucts(productId: int, db: Session = Depends(get_db)):
+    order = db.query(ProductModel).filter(ProductModel.id == productId).first()
+    if not order:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return order
+
 @app.post("/orders", response_model=Order)
 def create_order(order: OrderCreate, db: Session = Depends(get_db)):
     db_order = OrderModel(**order.model_dump())
@@ -48,3 +55,10 @@ def create_order(order: OrderCreate, db: Session = Depends(get_db)):
 @app.get("/orders", response_model=list[Order])
 def get_orders(db: Session = Depends(get_db)):
     return db.query(OrderModel).all()
+
+@app.get("/orders/{orderId}", response_model=Order)
+def get_order(orderId: int, db: Session = Depends(get_db)):
+    order = db.query(OrderModel).filter(OrderModel.id == orderId).first()
+    if not order:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return order
