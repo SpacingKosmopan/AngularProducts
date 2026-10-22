@@ -30,7 +30,7 @@ export enum PaymentMethodPolish {
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  products = [
+  products: Product[] = [
     {
       id: 0,
       name: 'Klawiatura',
