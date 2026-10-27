@@ -32,4 +32,9 @@ export const routes: Routes = [
     title: 'Produkt',
     loadComponent: () => import('./product-page/product-page').then((c) => c.ProductPage),
   },
+  {
+    path: 'seller',
+    title: 'Sprzedawca',
+    loadComponent: () => import('./seller-page/seller-page').then((c) => c.SellerPage),
+  },
 ];
