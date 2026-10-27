@@ -3,6 +3,7 @@ import { ProductService } from '../products.service';
 import { ProductItem } from './product-item/product-item';
 import { MatListModule } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Product } from '../ProductType';
 
 @Component({
   selector: 'app-product-list',

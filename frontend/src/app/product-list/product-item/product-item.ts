@@ -2,6 +2,7 @@ import { Component, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { Product } from '../../ProductType';
 
 @Component({
   imports: [MatButtonModule, MatIconModule, RouterLink],

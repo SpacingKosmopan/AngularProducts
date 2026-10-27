@@ -1,9 +1,9 @@
 import { Component, AfterViewInit, signal, inject } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { ProductService } from '../products.service';
-import { ProductItem } from './product-item/product-item';
 import { MatTableModule } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
+import { Product } from '../ProductType';
 
 @Component({
   imports: [MatListModule, MatTableModule, MatIcon],

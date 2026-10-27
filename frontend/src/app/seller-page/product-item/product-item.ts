@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { Product } from '../../ProductType';
 
 @Component({
   imports: [],

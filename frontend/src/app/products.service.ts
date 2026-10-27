@@ -1,6 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Product } from './ProductType';
 
 export interface Order {
   customer: string;
@@ -10,6 +11,12 @@ export interface Order {
   date: string;
   cart: { data: Product; amount: number }[];
   paymentMetod: PaymentMethod;
+}
+
+export interface Review {
+  id: number;
+  value: number;
+  content: string;
 }
 
 export interface CartProduct {
