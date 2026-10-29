@@ -16,6 +16,17 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
+  it('wyświetla napis Sklep w headerze', async () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const header = fixture.nativeElement.querySelector('#site-header');
+
+    expect(header).not.toBeNull();
+    expect(header!.textContent).toContain('Sklep');
+  });
+
   /*it('should render title', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
