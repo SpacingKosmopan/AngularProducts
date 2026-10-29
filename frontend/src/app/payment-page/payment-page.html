@@ -1,17 +1,17 @@
 @if (order) {
   <p>Zakup został sfinalizowany <mat-icon>check</mat-icon></p>
-  <h3>Podsumowanie tranzakcji</h3>
+  <h3>Podsumowanie transakcji</h3>
 
   <p>
-    {{ order.data.customer }}, {{ order.data.adress }},
-    {{ order.data.paymentMetod }}
+    {{ order.customer }}, {{ order.adress }},
+    {{ order.paymentMetod }}
   </p>
+
   <mat-list>
-    @for (product of order.data.cart; track product.data.id) {
-      <mat-list-item
-        >{{ product.data.name }} {{ product.amount }}x -
-        {{ product.data.price * product.amount }}zł</mat-list-item
-      >
+    @for (product of order.cart; track product.data.id) {
+      <mat-list-item>
+        {{ product.data.name }} {{ product.amount }}x - {{ product.data.price * product.amount }}zł
+      </mat-list-item>
     }
   </mat-list>
 

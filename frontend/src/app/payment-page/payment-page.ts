@@ -19,7 +19,7 @@ export class PaymentPage implements AfterViewInit {
 
   orderIdString = this.route.snapshot.queryParamMap.get('order-id');
   orderId = this.orderIdString ? Number(this.orderIdString) : undefined;
-  order = this.orderId !== undefined ? this.productsService.getOrder(this.orderId) : undefined;
+  order = this.orderId !== undefined ? this.productsService.getOrder(this.orderId).data : undefined;
 
   ngAfterViewInit() {
     if (this.order === undefined) {
