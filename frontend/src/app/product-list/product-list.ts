@@ -1,4 +1,4 @@
-import { Component, input, inject } from '@angular/core';
+import { Component, input, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../products.service';
 import { ProductItem } from './product-item/product-item';
 import { MatListModule } from '@angular/material/list';
@@ -11,14 +11,14 @@ import { Product } from '../ProductType';
   styleUrl: './product-list.scss',
   imports: [ProductItem, MatListModule],
 })
-export class ProductList {
+export class ProductList implements OnInit {
   productsService = inject(ProductService);
 
-  products: Product[] = [];
+  products = signal<Product[]>([]);
 
   ngOnInit() {
     this.productsService.getProducts().subscribe({
-      next: (data) => (this.products = data),
+      next: (data) => this.products.set(data),
       error: (err) => console.error(err),
     });
   }

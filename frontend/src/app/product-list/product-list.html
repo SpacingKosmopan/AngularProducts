@@ -1,6 +1,6 @@
 <mat-list class="product-material-list">
-  @for (product of this.products; track product.id) {
-    <mat-list-item class="product-list-item">
+  @for (product of products(); track product.id) {
+    <mat-list-item class="product-list-item" id="{{ 'product-' + product.id }}">
       <app-product-item [product]="product" (addProductEvent)="addProduct($event)" />
     </mat-list-item>
   }
