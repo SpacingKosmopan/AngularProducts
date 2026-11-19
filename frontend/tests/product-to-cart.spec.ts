@@ -1,14 +1,17 @@
 import { test, expect } from '@playwright/test';
 
 test('is the product added to cart and the amount can be changed', async ({ page }) => {
-  await page.route('http://localhost:8000/products', async (route) => {
+  await page.route('**://localhost:8000/products', async (route) => {
     await route.fulfill({
       json: [
-        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
-        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
-        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
-        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
-        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
+        {
+          id: 0,
+          name: 'string',
+          price: 199,
+          imageSrc: 'imgsrc',
+          description: 'desc',
+          reviews: [],
+        },
       ],
     });
   });
