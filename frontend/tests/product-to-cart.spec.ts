@@ -1,50 +1,35 @@
 import { test, expect } from '@playwright/test';
 
-const mockProducts = [
-  {
-    id: 0,
-    name: 'Klawiatura',
-    price: 199,
-    imageSrc: 'assets/images/keyboard.webp',
-    description: 'Myszka++',
-    reviews: [{ id: 0, value: 5, content: 'No fajna taka, klika se i wgl' }],
-  },
-  {
-    id: 1,
-    name: 'Mysz',
-    price: 99,
-    imageSrc: 'assets/images/mouse.webp',
-    description: 'Kliku klik, tu i tam, pracuj pracuj',
-    reviews: [],
-  },
-  {
-    id: 2,
-    name: 'Monitor',
-    price: 899,
-    imageSrc: 'assets/images/screen.webp',
-    description: 'Kolorowe ruchome pudełko',
-    reviews: [],
-  },
-  {
-    id: 3,
-    name: 'Słuchawki',
-    price: 149,
-    imageSrc: 'assets/images/headphones.webp',
-    description: 'Takie fajne, dwuuszne...',
-    reviews: [],
-  },
-];
+test('is the product added to cart and the amount can be changed', async ({ page }) => {
+  await page.route('http://localhost:8000/products', async (route) => {
+    await route.fulfill({
+      json: [
+        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
+        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
+        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
+        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
+        { id: 0, name: 'string', price: 0, imageSrc: 'string', description: 'string', reviews: [] },
+      ],
+    });
+  });
 
-test('is the product added to cart', async ({ page }) => {
-  await page.goto('http://localhost:4200/');
+  await page.goto('http://localhost:4200/products');
 
-  await page.getByRole('link', { name: 'Produkty' }).click();
   await expect(page.locator('app-product-item')).toContainText('string');
-  await page.getByRole('button', { name: 'Dodaj do koszyka' }).click();
-  await page.getByRole('link', { name: 'Koszyk' }).click();
-  await expect(page.locator('mat-card-content')).toContainText('string 1x');
-  await page.locator('mat-card-content').getByRole('button').filter({ hasText: 'add' }).click();
-  await expect(page.locator('mat-card-content')).toContainText('string 2x');
-  await page.locator('mat-card-content').getByRole('button').filter({ hasText: 'remove' }).click();
-  await expect(page.locator('mat-card-content')).toContainText('string 1x');
+  const button = page.getByRole('button', { name: 'Dodaj do koszyka' });
+  console.log('Znaleziono przycisków:', await button.count());
+  await button.first().click();
+
+  /* /?/ - regex */
+  /* //i case insensitive */
+  await page.getByRole('link', { name: /koszyk/i }).click();
+
+  const product = page.locator('mat-card-content mat-list-item').filter({ hasText: /string/ });
+  console.log('Znaleziono:', await product.count());
+
+  await product.getByTestId('add-btn').click();
+  await expect(product).toContainText('2x');
+
+  await product.getByTestId('remove-btn').click();
+  await expect(product).toContainText('1x');
 });

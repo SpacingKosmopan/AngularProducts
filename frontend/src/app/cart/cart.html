@@ -12,10 +12,14 @@
           </div>
 
           <div class="cart-product-actions">
-            <button mat-flat-button (click)="addProduct(product.data)">
+            <button mat-flat-button (click)="addProduct(product.data)" data-testid="add-btn">
               <mat-icon>add</mat-icon>
             </button>
-            <button mat-flat-button (click)="removeProduct(product.data.id)">
+            <button
+              mat-flat-button
+              (click)="removeProduct(product.data.id)"
+              data-testid="remove-btn"
+            >
               <mat-icon>remove</mat-icon>
             </button>
           </div>
